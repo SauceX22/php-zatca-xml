@@ -12,7 +12,8 @@ use Saleh7\Zatca\Exceptions\ZatcaStorageException;
  * The CSR is saved as a file (default "certificate.csr") and the key as a file (default "private.pem").
  * @see https://zatca.gov.sa/en/E-Invoicing/Introduction/Guidelines/Documents/Fatoora_Portal_User_Manual_English.pdf page 31 ..
  */
-class CertificateBuilder {
+class CertificateBuilder
+{
     private const OID_PROD = 'ZATCA-Code-Signing';
     private const OID_TEST = 'PREZATCA-Code-Signing';
     private const CONFIG_TEMPLATE = <<<EOL
@@ -69,7 +70,8 @@ EOL;
     /**
      * Set organization identifier (15 digits, starts and ends with 3).
      */
-    public function setOrganizationIdentifier(string $identifier): self {
+    public function setOrganizationIdentifier(string $identifier): self
+    {
         if (!preg_match('/^3\d{13}3$/', $identifier)) {
             throw new CertificateBuilderException('Org Identifier must be 15 digits starting and ending with 3.');
         }
@@ -80,7 +82,8 @@ EOL;
     /**
      * Set serial number using solution name, model, and serial.
      */
-    public function setSerialNumber(string $solutionName, string $model, string $serialNumber): self {
+    public function setSerialNumber(string $solutionName, string $model, string $serialNumber): self
+    {
         $this->serialNumber = sprintf(
             '1-%s|2-%s|3-%s',
             $this->sanitize($solutionName),
@@ -93,7 +96,8 @@ EOL;
     /**
      * Set common name.
      */
-    public function setCommonName(string $name): self {
+    public function setCommonName(string $name): self
+    {
         $this->commonName = $this->sanitize($name);
         return $this;
     }
@@ -101,7 +105,8 @@ EOL;
     /**
      * Set 2-character country code.
      */
-    public function setCountryName(string $country): self {
+    public function setCountryName(string $country): self
+    {
         if (strlen($country) !== 2) {
             throw new CertificateBuilderException('Country code must be 2 characters.');
         }
@@ -112,7 +117,8 @@ EOL;
     /**
      * Set organization name.
      */
-    public function setOrganizationName(string $name): self {
+    public function setOrganizationName(string $name): self
+    {
         $this->organizationName = $this->sanitize($name);
         return $this;
     }
@@ -120,7 +126,8 @@ EOL;
     /**
      * Set organizational unit.
      */
-    public function setOrganizationalUnitName(string $name): self {
+    public function setOrganizationalUnitName(string $name): self
+    {
         $this->organizationalUnitName = $this->sanitize($name);
         return $this;
     }
@@ -128,7 +135,8 @@ EOL;
     /**
      * Set address.
      */
-    public function setAddress(string $address): self {
+    public function setAddress(string $address): self
+    {
         $this->address = $this->sanitize($address);
         return $this;
     }
@@ -136,7 +144,8 @@ EOL;
     /**
      * Set invoice type (0- to 4-digit number).
      */
-    public function setInvoiceType(int $type): self {
+    public function setInvoiceType(int $type): self
+    {
         if ($type < 0 || $type > 9999) {
             throw new CertificateBuilderException('Invoice type must be a 4-digit number.');
         }
@@ -147,7 +156,8 @@ EOL;
     /**
      * Set production flag (true for production).
      */
-    public function setProduction(bool $production): self {
+    public function setProduction(bool $production): self
+    {
         $this->production = $production;
         return $this;
     }
@@ -155,7 +165,8 @@ EOL;
     /**
      * Set business category.
      */
-    public function setBusinessCategory(string $category): self {
+    public function setBusinessCategory(string $category): self
+    {
         $this->businessCategory = $this->sanitize($category);
         return $this;
     }
@@ -163,7 +174,8 @@ EOL;
     /**
      * Generate CSR and private key.
      */
-    public function generate(): void {
+    public function generate(): void
+    {
         $this->validateParameters();
         $config = $this->createOpenSslConfig();
         try {
@@ -182,7 +194,8 @@ EOL;
      * @param string $privateKeyPath Path to save the private key (default: private.pem)
      * @throws CertificateBuilderException
      */
-    public function generateAndSave(string $csrPath = 'certificate.csr', string $privateKeyPath = 'private.pem'): void {
+    public function generateAndSave(string $csrPath = 'certificate.csr', string $privateKeyPath = 'private.pem'): void
+    {
         $this->generate();
 
         $csrContent = $this->getCsr();
@@ -199,7 +212,8 @@ EOL;
     /**
      * Get CSR as a string.
      */
-    public function getCsr(): string {
+    public function getCsr(): string
+    {
         if (!$this->csr) {
             throw new CertificateBuilderException('CSR not generated. Call generate() first.');
         }
@@ -210,9 +224,24 @@ EOL;
     }
 
     /**
+     * Get private key as a string.
+     */
+    public function getPrivateKey(): string
+    {
+        if (!$this->privateKey) {
+            throw new CertificateBuilderException('Private key not generated. Call generate() first.');
+        }
+        if (!openssl_pkey_export($this->privateKey, $privateKey)) {
+            throw new CertificateBuilderException('Private key export failed: ' . $this->getOpenSslErrors());
+        }
+        return $privateKey;
+    }
+
+    /**
      * Save private key to a file.
      */
-    public function savePrivateKey(string $path): void {
+    public function savePrivateKey(string $path): void
+    {
         if (!openssl_pkey_export_to_file($this->privateKey, $path)) {
             throw new CertificateBuilderException('Private key export failed: ' . $this->getOpenSslErrors());
         }
@@ -221,14 +250,15 @@ EOL;
     /**
      * Validate required parameters.
      */
-    protected function validateParameters(): void {
+    protected function validateParameters(): void
+    {
         $required = [
-            'organizationIdentifier', 
-            'serialNumber', 
-            'commonName', 
-            'organizationName', 
-            'organizationalUnitName', 
-            'address', 
+            'organizationIdentifier',
+            'serialNumber',
+            'commonName',
+            'organizationName',
+            'organizationalUnitName',
+            'address',
             'businessCategory'
         ];
         foreach ($required as $param) {
@@ -243,7 +273,8 @@ EOL;
      *
      * @return array
      */
-    protected function createOpenSslConfig(): array {
+    protected function createOpenSslConfig(): array
+    {
         return [
             "digest_alg"       => "sha256",
             "private_key_bits" => 2048,
@@ -260,7 +291,8 @@ EOL;
      * @return string The path to the config file.
      * @throws CertificateBuilderException
      */
-    protected function createConfigFile(): string {
+    protected function createConfigFile(): string
+    {
         $dirSection = [
             'SN'                => $this->serialNumber,
             'UID'               => $this->organizationIdentifier,
@@ -297,7 +329,8 @@ EOL;
      *
      * @param array $config OpenSSL configuration array.
      */
-    protected function generateKeys(array $config): void {
+    protected function generateKeys(array $config): void
+    {
         $this->privateKey = openssl_pkey_new($config);
         if ($this->privateKey === false) {
             throw new CertificateBuilderException('Key generation failed: ' . $this->getOpenSslErrors());
@@ -319,7 +352,8 @@ EOL;
     /**
      * Sanitize input.
      */
-    protected function sanitize(string $input): string {
+    protected function sanitize(string $input): string
+    {
         $trimmed = trim($input);
         $sanitized = preg_replace('/[^a-zA-Z0-9\s\-_]/', '', $trimmed);
         if ($sanitized === null) {
@@ -331,7 +365,8 @@ EOL;
     /**
      * Retrieve all OpenSSL error messages.
      */
-    protected function getOpenSslErrors(): string {
+    protected function getOpenSslErrors(): string
+    {
         $errors = [];
         while ($msg = openssl_error_string()) {
             $errors[] = $msg;
@@ -342,7 +377,8 @@ EOL;
     /**
      * Free private key resource if necessary.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->privateKey && is_resource($this->privateKey)) {
             // todo DEPRECATED https://www.php.net/manual/en/function.openssl-pkey-free.php
             openssl_pkey_free($this->privateKey);
