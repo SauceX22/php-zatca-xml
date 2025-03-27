@@ -1,5 +1,7 @@
 <?php
+
 namespace Saleh7\Zatca;
+
 use Saleh7\Zatca\Exceptions\CertificateBuilderException;
 use Saleh7\Zatca\Exceptions\ZatcaStorageException;
 
@@ -29,40 +31,40 @@ subjectAltName = dirName:dir_sect
 EOL;
 
     /** @var string */
-    private string $organizationIdentifier;
+    protected string $organizationIdentifier;
     /** @var string */
-    private string $serialNumber;
+    protected string $serialNumber;
     /** @var string */
-    private string $commonName = '';
+    protected string $commonName = '';
     /** @var string */
-    private string $country = 'SA';
+    protected string $country = 'SA';
     /** @var string */
-    private string $organizationName = '';
+    protected string $organizationName = '';
     /** @var string */
-    private string $organizationalUnitName = '';
+    protected string $organizationalUnitName = '';
     /** @var string */
-    private string $address = '';
+    protected string $address = '';
     /** @var int */
-    private int $invoiceType = 1100;
+    protected int $invoiceType = 1100;
     /** @var bool */
-    private bool $production = false;
+    protected bool $production = false;
     /** @var string */
-    private string $businessCategory = '';
+    protected string $businessCategory = '';
 
     /**
      * In PHP 8.0+, openssl_pkey_new returns an OpenSSLAsymmetricKey object.
      * In earlier versions, it returns a resource.
      *
-     * @var resource|object|null
+     * @var OpenSSLAsymmetricKey|object|null
      */
-    private $privateKey = null;
+    protected $privateKey = null;
 
     /**
      * The CSR resource/object.
      *
      * @var resource|object|null
      */
-    private $csr = null;
+    protected $csr = null;
 
     /**
      * Set organization identifier (15 digits, starts and ends with 3).
@@ -219,7 +221,7 @@ EOL;
     /**
      * Validate required parameters.
      */
-    private function validateParameters(): void {
+    protected function validateParameters(): void {
         $required = [
             'organizationIdentifier', 
             'serialNumber', 
@@ -241,7 +243,7 @@ EOL;
      *
      * @return array
      */
-    private function createOpenSslConfig(): array {
+    protected function createOpenSslConfig(): array {
         return [
             "digest_alg"       => "sha256",
             "private_key_bits" => 2048,
@@ -258,7 +260,7 @@ EOL;
      * @return string The path to the config file.
      * @throws CertificateBuilderException
      */
-    private function createConfigFile(): string {
+    protected function createConfigFile(): string {
         $dirSection = [
             'SN'                => $this->serialNumber,
             'UID'               => $this->organizationIdentifier,
@@ -295,7 +297,7 @@ EOL;
      *
      * @param array $config OpenSSL configuration array.
      */
-    private function generateKeys(array $config): void {
+    protected function generateKeys(array $config): void {
         $this->privateKey = openssl_pkey_new($config);
         if ($this->privateKey === false) {
             throw new CertificateBuilderException('Key generation failed: ' . $this->getOpenSslErrors());
@@ -317,7 +319,7 @@ EOL;
     /**
      * Sanitize input.
      */
-    private function sanitize(string $input): string {
+    protected function sanitize(string $input): string {
         $trimmed = trim($input);
         $sanitized = preg_replace('/[^a-zA-Z0-9\s\-_]/', '', $trimmed);
         if ($sanitized === null) {
@@ -329,7 +331,7 @@ EOL;
     /**
      * Retrieve all OpenSSL error messages.
      */
-    private function getOpenSslErrors(): string {
+    protected function getOpenSslErrors(): string {
         $errors = [];
         while ($msg = openssl_error_string()) {
             $errors[] = $msg;
@@ -347,5 +349,3 @@ EOL;
         }
     }
 }
-
-?>
