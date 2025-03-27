@@ -1,8 +1,13 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\{
-    TaxScheme, LegalEntity, PartyTaxScheme, Address, Party
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\{
+    TaxScheme,
+    LegalEntity,
+    PartyTaxScheme,
+    Address,
+    Party
 };
 
 /**

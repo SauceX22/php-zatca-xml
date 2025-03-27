@@ -1,8 +1,13 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\{
-    TaxScheme, LegalEntity, PartyTaxScheme, Address, Party
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\{
+    TaxScheme,
+    LegalEntity,
+    PartyTaxScheme,
+    Address,
+    Party
 };
 
 /**
@@ -27,7 +32,7 @@ use Saleh7\Zatca\{
  *   "identificationType" => "CRN"              // Optional, defaults to "CRN" if not provided.
  * ]
  *
- * @package Saleh7\Zatca\Mappers
+ * @package Saucex22\Zatca\Mappers
  */
 class SupplierMapper
 {

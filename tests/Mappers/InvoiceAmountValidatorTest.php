@@ -1,6 +1,7 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Mappers\Validators\InvoiceAmountValidator;
+use Saucex22\Zatca\Mappers\Validators\InvoiceAmountValidator;
 
 /**
  * Class InvoiceAmountValidatorTest
@@ -54,7 +55,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     'id'                => 1,
                     'unitCode'          => 'PCE',
                     'quantity'          => 2,
-                    'lineExtensionAmount'=> 200, // 100 * 2 = 200
+                    'lineExtensionAmount' => 200, // 100 * 2 = 200
                     'item' => [
                         'name'       => 'Product A',
                         'taxPercent' => 15,
@@ -66,7 +67,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     ],
                     'taxTotal' => [
                         'taxAmount'     => 30,
-                        'roundingAmount'=> 230  // 200 + 30 = 230
+                        'roundingAmount' => 230  // 200 + 30 = 230
                     ]
                 ]
             ]
@@ -93,7 +94,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     'unitCode'          => 'PCE',
                     'quantity'          => 2,
                     // Incorrect lineExtensionAmount: expected 100 * 2 = 200, but provided 190
-                    'lineExtensionAmount'=> 190,
+                    'lineExtensionAmount' => 190,
                     'item' => [
                         'name'       => 'Product A',
                         'taxPercent' => 15,
@@ -105,7 +106,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     ],
                     'taxTotal' => [
                         'taxAmount'     => 30,
-                        'roundingAmount'=> 220 // 190 + 30 = 220
+                        'roundingAmount' => 220 // 190 + 30 = 220
                     ]
                 ]
             ]
@@ -129,7 +130,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     'id'                => 1,
                     'unitCode'          => 'PCE',
                     'quantity'          => 2,
-                    'lineExtensionAmount'=> 200, // 100 * 2 = 200
+                    'lineExtensionAmount' => 200, // 100 * 2 = 200
                     'item' => [
                         'name'       => 'Product A',
                         'taxPercent' => 15,
@@ -142,7 +143,7 @@ class InvoiceAmountValidatorTest extends TestCase
                     'taxTotal' => [
                         'taxAmount'     => 30,
                         // Incorrect roundingAmount: expected 200 + 30 = 230, but provided 225
-                        'roundingAmount'=> 225
+                        'roundingAmount' => 225
                     ]
                 ]
             ]

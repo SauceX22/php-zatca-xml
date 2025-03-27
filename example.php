@@ -1,11 +1,38 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-use Saleh7\Zatca\{
-    SignatureInformation,UBLDocumentSignatures,ExtensionContent,UBLExtension,UBLExtensions,Signature,InvoiceType,AdditionalDocumentReference,
-    TaxScheme,PartyTaxScheme,Address,LegalEntity,Delivery,Party,PaymentMeans,TaxCategory,
-    AllowanceCharge,TaxSubTotal,TaxTotal,LegalMonetaryTotal,ClassifiedTaxCategory,Item,Price,InvoiceLine,
-    GeneratorInvoice,Invoice,UnitCode,OrderReference,BillingReference,Contract,Attachment
+use Saucex22\Zatca\{
+    SignatureInformation,
+    UBLDocumentSignatures,
+    ExtensionContent,
+    UBLExtension,
+    UBLExtensions,
+    Signature,
+    InvoiceType,
+    AdditionalDocumentReference,
+    TaxScheme,
+    PartyTaxScheme,
+    Address,
+    LegalEntity,
+    Delivery,
+    Party,
+    PaymentMeans,
+    TaxCategory,
+    AllowanceCharge,
+    TaxSubTotal,
+    TaxTotal,
+    LegalMonetaryTotal,
+    ClassifiedTaxCategory,
+    Item,
+    Price,
+    InvoiceLine,
+    GeneratorInvoice,
+    Invoice,
+    UnitCode,
+    OrderReference,
+    BillingReference,
+    Contract,
+    Attachment
 };
 
 // --- Signature Information & UBL Document Signatures ---
@@ -41,12 +68,13 @@ $invoiceType = (new InvoiceType())
     ->setIsSummary(false) // Summary invoice
     ->setIsSelfBilled(false); // Self-billed invoice
 
-    // add Attachment
-    $attachment = (new Attachment())
-        ->setBase64Content('NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==',
-            'base64', 
-            'text/plain'
-        );
+// add Attachment
+$attachment = (new Attachment())
+    ->setBase64Content(
+        'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==',
+        'base64',
+        'text/plain'
+    );
 
 // --- Additional Document References ---
 $additionalDocs = [];
@@ -56,7 +84,7 @@ $additionalDocs[] = (new AdditionalDocumentReference())
 $additionalDocs[] = (new AdditionalDocumentReference())
     ->setId('PIH')
     ->setAttachment($attachment); // Previous Invoice Hash
-    // ->setPreviousInvoiceHash('NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ=='); // Previous Invoice Hash
+// ->setPreviousInvoiceHash('NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ=='); // Previous Invoice Hash
 $additionalDocs[] = (new AdditionalDocumentReference())
     ->setId('QR');
 
@@ -88,7 +116,7 @@ $legalEntity = (new LegalEntity())
 // --- Delivery ---
 $delivery = (new Delivery())
     ->setActualDeliveryDate("2022-09-07");
-    // ->setLatestDeliveryDate("2022-09-07"); // If the invoice contains a supply end date (KSA-24), then the invoice must contain a supply date (KSA-5).
+// ->setLatestDeliveryDate("2022-09-07"); // If the invoice contains a supply end date (KSA-24), then the invoice must contain a supply date (KSA-5).
 
 // --- Parties ---
 $supplierCompany = (new Party())
@@ -208,15 +236,15 @@ $invoice = (new Invoice())
     // ->setBillingReferences($billingReferences) // Order reference
     // ->setContract($contract) // Contract ID	The identification of a contract.
     ->setAdditionalDocumentReferences($additionalDocs) // Additional document references
-    ->setAccountingSupplierParty($supplierCompany)// Supplier company
+    ->setAccountingSupplierParty($supplierCompany) // Supplier company
     ->setAccountingCustomerParty($supplierCustomer) // Customer company
     // ->setDelivery($delivery)// Delivery
     // ->setPaymentMeans($paymentMeans)// Payment means
-    ->setAllowanceCharges($allowanceCharges)// Allowance charges
-    ->setTaxTotal($taxTotal)// Tax total
-    ->setLegalMonetaryTotal($legalMonetaryTotal)// Legal monetary total
-    ->setInvoiceLines($invoiceLines)// Invoice lines
-    ->setSignature($signature);// Signature
+    ->setAllowanceCharges($allowanceCharges) // Allowance charges
+    ->setTaxTotal($taxTotal) // Tax total
+    ->setLegalMonetaryTotal($legalMonetaryTotal) // Legal monetary total
+    ->setInvoiceLines($invoiceLines) // Invoice lines
+    ->setSignature($signature); // Signature
 
 // Generator Invoice
 $outputXML = GeneratorInvoice::invoice($invoice)->getXML();
@@ -229,7 +257,7 @@ $dom->encoding = 'UTF-8';
 $formattedXml = $dom->saveXML();
 
 // Convert 2-space indentation to 4-space indentation
-$formattedXml = preg_replace_callback('/^([ ]+)/m', function($matches) {
+$formattedXml = preg_replace_callback('/^([ ]+)/m', function ($matches) {
     return str_repeat('    ', strlen($matches[1]) / 2);
 }, $formattedXml);
 

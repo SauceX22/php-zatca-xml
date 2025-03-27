@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca\Mappers\Validators;
+
+namespace Saucex22\Zatca\Mappers\Validators;
 
 /**
  * Class InvoiceAmountValidator
@@ -13,7 +14,7 @@ namespace Saleh7\Zatca\Mappers\Validators;
  * - Each invoice line has valid numeric values for quantity, price, and line extension amounts,
  *   and that calculations (such as price * quantity) are consistent with the provided amounts.
  *
- * @package Saleh7\Zatca\Mappers\Validators
+ * @package Saucex22\Zatca\Mappers\Validators
  */
 class InvoiceAmountValidator
 {
@@ -61,7 +62,7 @@ class InvoiceAmountValidator
         $taxExclusiveAmount = (float)$lmt['taxExclusiveAmount'];
         $expectedTaxInclusive = $taxExclusiveAmount + $taxTotalAmount;
         $actualTaxInclusive = (float)$lmt['taxInclusiveAmount'];
-        
+
         // Allow a small difference (e.g., 0.01) due to rounding differences.
         if (abs($expectedTaxInclusive - $actualTaxInclusive) > 0.01) {
             throw new \InvalidArgumentException(
@@ -138,7 +139,7 @@ class InvoiceAmountValidator
             if ($taxLineAmount < 0) {
                 throw new \InvalidArgumentException("Invoice Line [{$index}] TaxTotal taxAmount cannot be negative.");
             }
-            
+
             // Validate that taxTotal's roundingAmount exists, is numeric, and equals lineExtensionAmount + taxAmount.
             if (!isset($line['taxTotal']['roundingAmount']) || !is_numeric($line['taxTotal']['roundingAmount'])) {
                 throw new \InvalidArgumentException("Invoice Line [{$index}] TaxTotal roundingAmount must be a numeric value.");

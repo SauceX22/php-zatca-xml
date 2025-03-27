@@ -85,8 +85,8 @@ This library simplifies the process of generating **ZATCA-compliant** e-invoices
 First, generate a **certificate signing request (CSR)** and private key:  
 
 ```php
-use Saleh7\Zatca\CertificateBuilder;
-use Saleh7\Zatca\Exceptions\CertificateBuilderException;
+use Saucex22\Zatca\CertificateBuilder;
+use Saucex22\Zatca\Exceptions\CertificateBuilderException;
 
 try {
     (new CertificateBuilder())
@@ -118,8 +118,8 @@ try {
 Once the CSR is generated, you need to request a **compliance certificate** from **ZATCA's API**.  
 
 ```php
-use Saleh7\Zatca\ZatcaAPI;
-use Saleh7\Zatca\Exceptions\ZatcaApiException;
+use Saucex22\Zatca\ZatcaAPI;
+use Saucex22\Zatca\Exceptions\ZatcaApiException;
 
 $zatcaClient = new ZatcaAPI('sandbox');
 
@@ -161,7 +161,7 @@ try {
 Now that we have the compliance certificate, we can generate a **ZATCA-compliant e-invoice in XML format**.
 
 ```php
-use Saleh7\Zatca\{
+use Saucex22\Zatca\{
     SignatureInformation, UBLDocumentSignatures, ExtensionContent, UBLExtension, UBLExtensions, Signature, 
     InvoiceType, AdditionalDocumentReference, TaxScheme, PartyTaxScheme, Address, LegalEntity, Delivery, 
     Party, PaymentMeans, TaxCategory, AllowanceCharge, TaxSubTotal, TaxTotal, LegalMonetaryTotal, 
@@ -303,9 +303,9 @@ try {
 Before submitting the invoice to **ZATCA**, we need to **digitally sign** it using the **compliance certificate** obtained earlier.
 
 ```php
-use Saleh7\Zatca\Helpers\Certificate;
-use Saleh7\Zatca\InvoiceSigner;
-use Saleh7\Zatca\Storage;
+use Saucex22\Zatca\Helpers\Certificate;
+use Saucex22\Zatca\InvoiceSigner;
+use Saucex22\Zatca\Storage;
 
 // Load the unsigned invoice XML
 $xmlInvoice = (new Storage)->get(__DIR__ . '/output/unsigned_invoice.xml');

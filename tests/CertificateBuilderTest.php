@@ -1,7 +1,8 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\CertificateBuilder;
-use Saleh7\Zatca\Exceptions\CertificateBuilderException;
+use Saucex22\Zatca\CertificateBuilder;
+use Saucex22\Zatca\Exceptions\CertificateBuilderException;
 
 final class CertificateBuilderTest extends TestCase
 {
@@ -69,7 +70,7 @@ final class CertificateBuilderTest extends TestCase
             ->setAddress('Riyadh 1234 Street')
             ->setInvoiceType(1100)
             ->setProduction(true);
-            // Missing setBusinessCategory
+        // Missing setBusinessCategory
 
         // Calling generate() should throw an exception.
         $builder->generate();

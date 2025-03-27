@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use InvalidArgumentException;
 use Sabre\Xml\Writer;

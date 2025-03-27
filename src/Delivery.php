@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use DateTime;
 use InvalidArgumentException;
@@ -127,7 +128,7 @@ class Delivery implements XmlSerializable
         if ($this->latestDeliveryDate !== null) {
             $data[Schema::CBC . 'LatestDeliveryDate'] = $this->latestDeliveryDate->format('Y-m-d');
         }
-        
+
         if ($this->deliveryLocation !== null) {
             $data[Schema::CAC . 'DeliveryLocation'] = [
                 Schema::CAC . 'Address' => $this->deliveryLocation,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Saleh7\Zatca\Api;
+namespace Saucex22\Zatca\Api;
 
 /**
  * Class ComplianceCertificateResult

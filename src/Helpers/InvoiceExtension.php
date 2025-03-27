@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca\Helpers;
+
+namespace Saucex22\Zatca\Helpers;
 
 use DOMDocument;
 use DOMElement;
@@ -7,7 +8,7 @@ use DOMException;
 use DOMXPath;
 use WeakMap;
 use InvalidArgumentException;
-use Saleh7\Zatca\Tags\{Seller, TaxNumber, PublicKey, InvoiceTotalAmount, InvoiceTaxAmount, InvoiceHash, InvoiceDigitalSignature, InvoiceDate, CertificateSignature};
+use Saucex22\Zatca\Tags\{Seller, TaxNumber, PublicKey, InvoiceTotalAmount, InvoiceTaxAmount, InvoiceHash, InvoiceDigitalSignature, InvoiceDate, CertificateSignature};
 
 /**
  * Class InvoiceExtension
@@ -15,7 +16,7 @@ use Saleh7\Zatca\Tags\{Seller, TaxNumber, PublicKey, InvoiceTotalAmount, Invoice
  * This class wraps a DOMElement and provides utility methods for managing
  * invoice XML extensions, including parsing, modifying, and exporting XML.
  *
- * @package Saleh7\Zatca\Helpers
+ * @package Saucex22\Zatca\Helpers
  */
 class InvoiceExtension
 {

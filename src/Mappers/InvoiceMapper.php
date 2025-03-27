@@ -1,12 +1,21 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
+
+namespace Saucex22\Zatca\Mappers;
 
 use DateTime;
-use Saleh7\Zatca\{
-    Invoice, UBLExtensions, Signature, InvoiceType, TaxTotal, LegalMonetaryTotal, Delivery, AllowanceCharge, BillingReference
+use Saucex22\Zatca\{
+    Invoice,
+    UBLExtensions,
+    Signature,
+    InvoiceType,
+    TaxTotal,
+    LegalMonetaryTotal,
+    Delivery,
+    AllowanceCharge,
+    BillingReference
 };
-use Saleh7\Zatca\Mappers\Validators\InvoiceValidator;
-// use Saleh7\Zatca\Mappers\Validators\InvoiceAmountValidator;
+use Saucex22\Zatca\Mappers\Validators\InvoiceValidator;
+// use Saucex22\Zatca\Mappers\Validators\InvoiceAmountValidator;
 
 /**
  * Class InvoiceMapper
@@ -17,7 +26,7 @@ use Saleh7\Zatca\Mappers\Validators\InvoiceValidator;
  * The mapping process uses several dependent mappers to convert nested data sections,
  * such as supplier, customer, invoice lines, payment means, and additional documents.
  *
- * @package Saleh7\Zatca\Mappers
+ * @package Saucex22\Zatca\Mappers
  */
 class InvoiceMapper
 {
@@ -94,34 +103,34 @@ class InvoiceMapper
 
         // Map invoice sections using separate mappers.
         $invoice->setUBLExtensions($this->mapUBLExtensions($data['ublExtensions'] ?? []))
-                ->setUUID($data['uuid'])
-                ->setId($data['id'])
-                ->setIssueDate($this->mapDateTime($data['issueDate']))
-                ->setIssueTime($this->mapDateTime($data['issueTime'] ?? ''))
-                ->setInvoiceType($this->mapInvoiceType($data['invoiceType'] ?? []))
-                ->setNote($data['note'] ?? null)
-                ->setlanguageID($data['languageID'] ?? 'en')
-                ->setInvoiceCurrencyCode($data['currencyCode'] ?? 'SAR')
-                ->setTaxCurrencyCode($data['taxCurrencyCode'] ?? 'SAR')
-                ->setBillingReferences(
-                    $this->mapBillingReferences($data['billingReferences'] ?? [])
-                )
-                ->setAdditionalDocumentReferences(
-                    $this->additionalDocumentMapper->mapAdditionalDocuments($data['additionalDocuments'] ?? [])
-                )
-                ->setAccountingSupplierParty(
-                    $this->supplierMapper->map($data['supplier'] ?? [])
-                )
-                ->setAccountingCustomerParty(
-                    $this->customerMapper->map($data['customer'] ?? [])
-                )
-                ->setDelivery($this->mapDelivery($data['delivery'] ?? []))
-                ->setPaymentMeans($this->paymentMeansMapper->map($data['paymentMeans'] ?? []))
-                ->setAllowanceCharges($this->mapAllowanceCharge($data ?? []))
-                ->setTaxTotal($this->mapTaxTotal($data['taxTotal'] ?? []))
-                ->setLegalMonetaryTotal($this->mapLegalMonetaryTotal($data['legalMonetaryTotal'] ?? []))
-                ->setInvoiceLines($this->invoiceLineMapper->mapInvoiceLines($data['invoiceLines'] ?? []))
-                ->setSignature($this->mapSignature($data['signature'] ?? []));
+            ->setUUID($data['uuid'])
+            ->setId($data['id'])
+            ->setIssueDate($this->mapDateTime($data['issueDate']))
+            ->setIssueTime($this->mapDateTime($data['issueTime'] ?? ''))
+            ->setInvoiceType($this->mapInvoiceType($data['invoiceType'] ?? []))
+            ->setNote($data['note'] ?? null)
+            ->setlanguageID($data['languageID'] ?? 'en')
+            ->setInvoiceCurrencyCode($data['currencyCode'] ?? 'SAR')
+            ->setTaxCurrencyCode($data['taxCurrencyCode'] ?? 'SAR')
+            ->setBillingReferences(
+                $this->mapBillingReferences($data['billingReferences'] ?? [])
+            )
+            ->setAdditionalDocumentReferences(
+                $this->additionalDocumentMapper->mapAdditionalDocuments($data['additionalDocuments'] ?? [])
+            )
+            ->setAccountingSupplierParty(
+                $this->supplierMapper->map($data['supplier'] ?? [])
+            )
+            ->setAccountingCustomerParty(
+                $this->customerMapper->map($data['customer'] ?? [])
+            )
+            ->setDelivery($this->mapDelivery($data['delivery'] ?? []))
+            ->setPaymentMeans($this->paymentMeansMapper->map($data['paymentMeans'] ?? []))
+            ->setAllowanceCharges($this->mapAllowanceCharge($data ?? []))
+            ->setTaxTotal($this->mapTaxTotal($data['taxTotal'] ?? []))
+            ->setLegalMonetaryTotal($this->mapLegalMonetaryTotal($data['legalMonetaryTotal'] ?? []))
+            ->setInvoiceLines($this->invoiceLineMapper->mapInvoiceLines($data['invoiceLines'] ?? []))
+            ->setSignature($this->mapSignature($data['signature'] ?? []));
 
         // Add additional notes if available.
         if (isset($data['notes'])) {
@@ -144,20 +153,20 @@ class InvoiceMapper
     private function mapUBLExtensions(array $data): UBLExtensions
     {
         // Create SignatureInformation and set its properties.
-        $signatureInfo = (new \Saleh7\Zatca\SignatureInformation())
+        $signatureInfo = (new \Saucex22\Zatca\SignatureInformation())
             ->setReferencedSignatureID($data['referencedSignatureId'] ?? "urn:oasis:names:specification:ubl:signature:Invoice")
             ->setID($data['id'] ?? 'urn:oasis:names:specification:ubl:signature:1');
 
         // Create UBLDocumentSignatures with the signature information.
-        $ublDocSignatures = (new \Saleh7\Zatca\UBLDocumentSignatures())
+        $ublDocSignatures = (new \Saucex22\Zatca\UBLDocumentSignatures())
             ->setSignatureInformation($signatureInfo);
 
         // Create ExtensionContent to hold the UBLDocumentSignatures.
-        $extensionContent = (new \Saleh7\Zatca\ExtensionContent())
+        $extensionContent = (new \Saucex22\Zatca\ExtensionContent())
             ->setUBLDocumentSignatures($ublDocSignatures);
 
         // Create UBLExtension with the URI and extension content.
-        $ublExtension = (new \Saleh7\Zatca\UBLExtension())
+        $ublExtension = (new \Saucex22\Zatca\UBLExtension())
             ->setExtensionURI($data['extensionUri'] ?? 'urn:oasis:names:specification:ubl:dsig:enveloped:xades')
             ->setExtensionContent($extensionContent);
 
@@ -228,27 +237,27 @@ class InvoiceMapper
         // Iterate over each allowance charge in the data.
         foreach ($data['allowanceCharges'] as $allowanceCharge) {
             $taxCategories = [];
-            
+
             // Check if taxCategories is an array and iterate over it.
             if (isset($allowanceCharge['taxCategories']) && is_array($allowanceCharge['taxCategories'])) {
                 foreach ($allowanceCharge['taxCategories'] as $taxCatData) {
-                    $taxCategories[] = (new \Saleh7\Zatca\TaxCategory())
+                    $taxCategories[] = (new \Saucex22\Zatca\TaxCategory())
                         ->setPercent($taxCatData['percent'] ?? 15)
                         ->setTaxScheme(
-                            (new \Saleh7\Zatca\TaxScheme())
+                            (new \Saucex22\Zatca\TaxScheme())
                                 ->setId($taxCatData['taxScheme']['id'] ?? "VAT")
                         );
                 }
             }
-            
+
             // Create the AllowanceCharge object with its tax categories.
-            $allowanceCharges[] = (new \Saleh7\Zatca\AllowanceCharge())
+            $allowanceCharges[] = (new \Saucex22\Zatca\AllowanceCharge())
                 ->setChargeIndicator($allowanceCharge['isCharge'] ?? false)
                 ->setAllowanceChargeReason($allowanceCharge['reason'] ?? 'discount')
                 ->setAmount($allowanceCharge['amount'] ?? 0.00)
                 ->setTaxCategory($taxCategories);
         }
-        
+
         return $allowanceCharges;
     }
 
@@ -256,11 +265,11 @@ class InvoiceMapper
      * Map Delivery data to a Delivery object.
      *
      * @param array $data The delivery data.
-     * @return \Saleh7\Zatca\Delivery The mapped Delivery object.
+     * @return \Saucex22\Zatca\Delivery The mapped Delivery object.
      */
-    private function mapDelivery(array $data): \Saleh7\Zatca\Delivery
+    private function mapDelivery(array $data): \Saucex22\Zatca\Delivery
     {
-        return (new \Saleh7\Zatca\Delivery())
+        return (new \Saucex22\Zatca\Delivery())
             ->setActualDeliveryDate($data['actualDeliveryDate'] ?? null)
             ->setLatestDeliveryDate($data['latestDeliveryDate'] ?? null);
     }
@@ -282,29 +291,29 @@ class InvoiceMapper
                 $percent = $taxCategoryData['percent'] ?? 15;
                 $reasonCode = $taxCategoryData['reasonCode'] ?? null;
                 $reason = $taxCategoryData['reason'] ?? null;
-                
+
                 // Build the TaxScheme object.
                 $taxSchemeData = $taxCategoryData['taxScheme'] ?? [];
-                $taxScheme = (new \Saleh7\Zatca\TaxScheme())
+                $taxScheme = (new \Saucex22\Zatca\TaxScheme())
                     ->setId($taxSchemeData['id'] ?? "VAT");
-                
+
                 // Build the TaxCategory object using the extracted data.
-                $taxCategory = (new \Saleh7\Zatca\TaxCategory())
+                $taxCategory = (new \Saucex22\Zatca\TaxCategory())
                     ->setPercent($percent)
                     ->setTaxExemptionReasonCode($reasonCode)
                     ->setTaxExemptionReason($reason)
                     ->setTaxScheme($taxScheme);
-                
+
                 // Create the TaxSubTotal object.
-                $taxSubTotal = (new \Saleh7\Zatca\TaxSubTotal())
+                $taxSubTotal = (new \Saucex22\Zatca\TaxSubTotal())
                     ->setTaxableAmount($subTotal['taxableAmount'] ?? 0)
                     ->setTaxAmount($subTotal['taxAmount'] ?? 0)
                     ->setTaxCategory($taxCategory);
-                
+
                 $taxTotal->addTaxSubTotal($taxSubTotal);
             }
         }
-        
+
         return $taxTotal;
     }
 

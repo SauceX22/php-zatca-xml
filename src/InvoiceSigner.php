@@ -1,12 +1,12 @@
 <?php
 
-namespace Saleh7\Zatca;
+namespace Saucex22\Zatca;
 
-use Saleh7\Zatca\Exceptions\ZatcaStorageException;
-use Saleh7\Zatca\Helpers\QRCodeGenerator;
-use Saleh7\Zatca\Helpers\Certificate;
-use Saleh7\Zatca\Helpers\InvoiceExtension;
-use Saleh7\Zatca\Helpers\InvoiceSignatureBuilder;
+use Saucex22\Zatca\Exceptions\ZatcaStorageException;
+use Saucex22\Zatca\Helpers\QRCodeGenerator;
+use Saucex22\Zatca\Helpers\Certificate;
+use Saucex22\Zatca\Helpers\InvoiceExtension;
+use Saucex22\Zatca\Helpers\InvoiceSignatureBuilder;
 
 class InvoiceSigner
 {

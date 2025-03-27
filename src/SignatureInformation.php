@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
@@ -59,8 +60,8 @@ class SignatureInformation implements XmlSerializable
     public function xmlSerialize(Writer $writer): void
     {
         $writer->write([
-            [ Schema::CBC . 'ID' => $this->id ],
-            [ Schema::SBC . 'ReferencedSignatureID' => $this->referencedSignatureID ]
+            [Schema::CBC . 'ID' => $this->id],
+            [Schema::SBC . 'ReferencedSignatureID' => $this->referencedSignatureID]
         ]);
     }
 }

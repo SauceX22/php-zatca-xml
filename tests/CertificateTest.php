@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Helpers\Certificate;
+use Saucex22\Zatca\Helpers\Certificate;
 use phpseclib3\File\X509;
 use phpseclib3\Crypt\Common\PrivateKey;
 
@@ -119,11 +119,11 @@ class CertificateTest extends TestCase
     {
         $hash = $this->certificate->getCertHash();
         $this->assertNotEmpty($hash, 'Certificate hash should not be empty.');
-        
+
         // Decode and verify the length of the hash (SHA-256 produces 32 bytes).
         $decoded = base64_decode($hash, true);
         $this->assertStringContainsString(
-            "6e605d1c0c9226847d88fdd511c99157df1739b75a439dc8eaa0eea1d27a0d95", 
+            "6e605d1c0c9226847d88fdd511c99157df1739b75a439dc8eaa0eea1d27a0d95",
             $decoded
         );
     }
@@ -136,7 +136,7 @@ class CertificateTest extends TestCase
         $issuer = $this->certificate->getFormattedIssuer();
         $this->assertIsString($issuer, 'Formatted issuer should be a string.');
         $this->assertNotEmpty($issuer, 'Formatted issuer should not be empty.');
-        
+
         // Optionally, check if the issuer contains an expected value.
         $this->assertStringContainsString(
             'eInvoicing',
@@ -168,12 +168,12 @@ class CertificateTest extends TestCase
         // Get the full signature from the current certificate array via delegation.
         $currentCert = $this->certificate->getCurrentCert();
         $fullSignature = $currentCert['signature'];
-        
+
         // Get the processed signature from the method.
         $signature = $this->certificate->getCertSignature();
         $this->assertIsString($signature, 'Certificate signature should be a string.');
         $this->assertNotEmpty($signature, 'Certificate signature should not be empty.');
-        
+
         // Check that the returned signature length is one less than the full signature.
         $this->assertEquals(
             strlen($fullSignature) - 1,

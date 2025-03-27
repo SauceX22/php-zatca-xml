@@ -1,6 +1,6 @@
 <?php
 
-namespace Saleh7\Zatca\Helpers;
+namespace Saucex22\Zatca\Helpers;
 
 use phpseclib3\Crypt\Common\PrivateKey;
 use phpseclib3\Crypt\EC;
@@ -11,7 +11,7 @@ use phpseclib3\File\X509;
  *
  * Provides methods to manage and use X509 certificates.
  *
- * @package Saleh7\Zatca\Helpers
+ * @package Saucex22\Zatca\Helpers
  * @mixin X509
  */
 class Certificate
@@ -176,6 +176,4 @@ class Certificate
     {
         return substr($this->getCurrentCert()['signature'], 1);
     }
-
-
 }

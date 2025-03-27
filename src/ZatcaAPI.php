@@ -1,16 +1,16 @@
 <?php
 
-namespace Saleh7\Zatca;
+namespace Saucex22\Zatca;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Saleh7\Zatca\Api\ComplianceCertificateResult;
-use Saleh7\Zatca\Api\ProductionCertificateResult;
-use Saleh7\Zatca\Exceptions\ZatcaApiException;
+use Saucex22\Zatca\Api\ComplianceCertificateResult;
+use Saucex22\Zatca\Api\ProductionCertificateResult;
+use Saucex22\Zatca\Exceptions\ZatcaApiException;
 use InvalidArgumentException;
-use Saleh7\Zatca\Exceptions\ZatcaStorageException;
+use Saucex22\Zatca\Exceptions\ZatcaStorageException;
 
 /**
  * ZATCA E-Invoicing API Client for compliance and reporting operations.
@@ -282,7 +282,7 @@ class ZatcaAPI
     protected function isSuccessfulResponse(int $statusCode): bool
     {
         return in_array($statusCode, self::SUCCESS_STATUS_CODES, true) &&
-               ($this->allowWarnings || $statusCode === 200);
+            ($this->allowWarnings || $statusCode === 200);
     }
 
     /**
@@ -341,5 +341,4 @@ class ZatcaAPI
 
         (new Storage)->put($filePath, $json);
     }
-    
 }

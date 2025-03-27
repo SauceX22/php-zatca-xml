@@ -1,7 +1,8 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\PaymentMeans;
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\PaymentMeans;
 
 /**
  * Class PaymentMeansMapper
@@ -13,7 +14,7 @@ use Saleh7\Zatca\PaymentMeans;
  *     "code" => "10" // Payment means code, e.g., "10" for cash.
  * ]
  *
- * @package Saleh7\Zatca\Mappers
+ * @package Saucex22\Zatca\Mappers
  */
 class PaymentMeansMapper
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Saleh7\Zatca\Helpers;
+namespace Saucex22\Zatca\Helpers;
 
-use Saleh7\Zatca\Helpers\Certificate;
+use Saucex22\Zatca\Helpers\Certificate;
 use InvalidArgumentException;
 
 /**
@@ -10,7 +10,7 @@ use InvalidArgumentException;
  *
  * Builds the UBL signature XML for invoices.
  *
- * @package Saleh7\Zatca\Helpers
+ * @package Saucex22\Zatca\Helpers
  */
 class InvoiceSignatureBuilder
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Saleh7\Zatca;
+namespace Saucex22\Zatca;
 
 use Exception;
 use InvalidArgumentException;
 
-use Saleh7\Zatca\Exceptions\ZatcaStorageException;
+use Saucex22\Zatca\Exceptions\ZatcaStorageException;
 use function Sabre\Xml\Deserializer\mixedContent;
 
 use Sabre\Xml\Reader;
@@ -31,7 +31,7 @@ class Attachment implements XmlSerializable, XmlDeserializable
             return $mime_type;
         }
 
-        throw new Exception('Could not determine mime_type of '.$this->filePath);
+        throw new Exception('Could not determine mime_type of ' . $this->filePath);
     }
 
     /**
@@ -179,7 +179,7 @@ class Attachment implements XmlSerializable, XmlDeserializable
         if ($this->externalReference) {
             $writer->writeElement(
                 Schema::CAC . 'ExternalReference',
-                [ Schema::CBC . 'URI' => $this->externalReference ]
+                [Schema::CBC . 'URI' => $this->externalReference]
             );
         }
     }
@@ -193,15 +193,13 @@ class Attachment implements XmlSerializable, XmlDeserializable
     {
         $mixedContent = mixedContent($reader);
 
-        $embeddedDocumentBinaryObject = array_values(array_filter($mixedContent, fn ($element) => $element['name'] === Schema::CBC . 'EmbeddedDocumentBinaryObject'))[0] ?? null;
+        $embeddedDocumentBinaryObject = array_values(array_filter($mixedContent, fn($element) => $element['name'] === Schema::CBC . 'EmbeddedDocumentBinaryObject'))[0] ?? null;
 
         return (new static())
             ->setBase64Content(
                 $embeddedDocumentBinaryObject['value'] ?? null,
                 $embeddedDocumentBinaryObject['attributes']['filename'] ?? null,
                 $embeddedDocumentBinaryObject['attributes']['mimeCode'] ?? null
-            )
-        ;
+            );
     }
 }
-

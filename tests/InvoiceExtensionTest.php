@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Helpers\InvoiceExtension;
+use Saucex22\Zatca\Helpers\InvoiceExtension;
 
 class InvoiceExtensionTest extends TestCase
 {
@@ -12,11 +12,11 @@ class InvoiceExtensionTest extends TestCase
     {
         $xmlString = '<root><child>Content</child></root>';
         $extension = InvoiceExtension::fromString($xmlString);
-        
+
         $this->assertInstanceOf(InvoiceExtension::class, $extension);
         $this->assertStringContainsString('Content', $extension->toXml());
     }
-    
+
     /**
      * Test that newInstance() creates an element with the right value and attributes.
      */
@@ -24,11 +24,11 @@ class InvoiceExtensionTest extends TestCase
     {
         $extension = InvoiceExtension::newInstance('test:Element', 'Hello', ['attr' => 'value']);
         $xml = $extension->toXml();
-        
+
         $this->assertStringContainsString('Hello', $xml);
         $this->assertStringContainsString('attr="value"', $xml);
     }
-    
+
     /**
      * Test find() and findAll() methods.
      */
@@ -36,14 +36,14 @@ class InvoiceExtensionTest extends TestCase
     {
         $xmlString = '<root><child>One</child><child>Two</child></root>';
         $extension = InvoiceExtension::fromString($xmlString);
-        
+
         $found = $extension->find('child');
         $this->assertNotNull($found, 'find() should return a node');
-        
+
         $all = $extension->findAll('child');
         $this->assertCount(2, $all, 'There should be 2 child nodes');
     }
-    
+
     /**
      * Test that remove() removes a child node.
      */
@@ -51,14 +51,14 @@ class InvoiceExtensionTest extends TestCase
     {
         $xmlString = '<root><child>RemoveMe</child></root>';
         $extension = InvoiceExtension::fromString($xmlString);
-        
+
         $child = $extension->find('child');
         $this->assertNotNull($child, 'Child node should exist');
         $child->remove();
-        
+
         $this->assertEmpty($extension->findAll('child'), 'Child node should be removed');
     }
-    
+
     /**
      * Test that toXml() returns a valid XML string.
      */
@@ -67,11 +67,11 @@ class InvoiceExtensionTest extends TestCase
         $xmlString = '<root><child>Text</child></root>';
         $extension = InvoiceExtension::fromString($xmlString);
         $xmlOutput = $extension->toXml();
-        
+
         $this->assertStringStartsWith('<?xml', $xmlOutput, 'XML declaration should be present');
         $this->assertStringContainsString('<child>Text</child>', $xmlOutput);
     }
-    
+
     /**
      * Test that computeXmlDigest() returns a valid Base64-encoded SHA-256 digest.
      *
@@ -96,7 +96,7 @@ XML;
 
         $extension = InvoiceExtension::fromString($xmlString);
         $digest = $extension->computeXmlDigest();
-        
+
         $this->assertNotEmpty($digest, 'Digest should not be empty');
         $decoded = base64_decode($digest, true);
         $this->assertEquals(32, strlen($decoded), 'SHA-256 digest should be 32 bytes');

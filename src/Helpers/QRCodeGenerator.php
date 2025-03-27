@@ -1,9 +1,10 @@
 <?php
 
-namespace Saleh7\Zatca\Helpers;
+namespace Saucex22\Zatca\Helpers;
 
 use InvalidArgumentException;
-use Saleh7\Zatca\Tag;
+use Saucex22\Zatca\Tag;
+
 class QRCodeGenerator
 {
     /**
@@ -64,6 +65,4 @@ class QRCodeGenerator
             return (string) $tag;
         }, $this->tags));
     }
-
-
 }

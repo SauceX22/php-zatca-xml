@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Storage;
-use Saleh7\Zatca\Exceptions\ZatcaStorageException;
+use Saucex22\Zatca\Storage;
+use Saucex22\Zatca\Exceptions\ZatcaStorageException;
 
 class StorageTest extends TestCase
 {
@@ -16,7 +16,7 @@ class StorageTest extends TestCase
     {
         // Initialize storage with a temporary directory
         $this->storage = new Storage(__DIR__ . '/test_storage');
-        
+
         // Ensure the test directory exists (create it if it doesn't)
         if (!is_dir(__DIR__ . '/test_storage')) {
             mkdir(__DIR__ . '/test_storage', 0777, true);
@@ -74,11 +74,11 @@ class StorageTest extends TestCase
 
         // Write initial content to the file
         $this->storage->put($path, $content);
-        
+
         // Append content to the file
         $result = $this->storage->append($path, $appendContent);
         $this->assertTrue($result); // Assert append was successful
-        
+
         // Check that the content was correctly appended
         $expectedContent = $content . $appendContent;
         $this->assertStringEqualsFile(__DIR__ . '/test_storage/' . $path, $expectedContent);

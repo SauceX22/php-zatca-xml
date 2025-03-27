@@ -1,8 +1,9 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\AdditionalDocumentReference;
-use Saleh7\Zatca\Attachment;
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\AdditionalDocumentReference;
+use Saucex22\Zatca\Attachment;
 
 /**
  * Class AdditionalDocumentMapper
@@ -29,21 +30,21 @@ class AdditionalDocumentMapper
     public function mapAdditionalDocuments(array $documents): array
     {
         $additionalDocs = [];
-        
+
         foreach ($documents as $doc) {
             // Ensure a valid document ID is provided
             $docId = $doc['id'] ?? '';
             if (empty($docId)) {
                 continue; // Skip documents without an ID
             }
-            
+
             $docRef = new AdditionalDocumentReference();
             $docRef->setId($docId);
-            
+
             if (isset($doc['uuid']) && !empty($doc['uuid'])) {
                 $docRef->setUUID($doc['uuid']);
             }
-            
+
             // If document ID is 'PIH', map the attachment if provided.
             if ($docId === 'PIH' && isset($doc['attachment']) && is_array($doc['attachment'])) {
                 $attachmentData = $doc['attachment'];
@@ -55,10 +56,10 @@ class AdditionalDocumentMapper
                     );
                 $docRef->setAttachment($attachment);
             }
-            
+
             $additionalDocs[] = $docRef;
         }
-        
+
         // Append a default additional document reference for QR code if not already present.
         $qrExists = false;
         foreach ($additionalDocs as $docRef) {
@@ -70,7 +71,7 @@ class AdditionalDocumentMapper
         if (!$qrExists) {
             $additionalDocs[] = (new AdditionalDocumentReference())->setId('QR');
         }
-        
+
         return $additionalDocs;
     }
 }

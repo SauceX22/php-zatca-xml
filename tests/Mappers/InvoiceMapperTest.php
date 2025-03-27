@@ -1,7 +1,8 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Mappers\InvoiceMapper;
-use Saleh7\Zatca\Invoice;
+use Saucex22\Zatca\Mappers\InvoiceMapper;
+use Saucex22\Zatca\Invoice;
 
 /**
  * Class InvoiceMapperTest
@@ -182,7 +183,7 @@ class InvoiceMapperTest extends TestCase
 
         // Assert that the returned object is an instance of Invoice
         $this->assertInstanceOf(Invoice::class, $invoice);
-        
+
         // Additional assertions can be added to validate specific properties
     }
 

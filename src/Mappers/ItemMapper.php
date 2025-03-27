@@ -1,8 +1,11 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\{
-    Item, TaxScheme, ClassifiedTaxCategory
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\{
+    Item,
+    TaxScheme,
+    ClassifiedTaxCategory
 };
 
 /**
@@ -19,7 +22,7 @@ use Saleh7\Zatca\{
  *     "taxPercent" => 15
  * ]
  *
- * @package Saleh7\Zatca\Mappers
+ * @package Saucex22\Zatca\Mappers
  */
 class ItemMapper
 {
@@ -40,7 +43,7 @@ class ItemMapper
             foreach ($data['classifiedTaxCategory'] as $tax) {
                 // Map TaxScheme for the item.
                 $taxScheme = (new TaxScheme())
-                ->setId($tax['taxScheme']['id'] ?? "VAT");
+                    ->setId($tax['taxScheme']['id'] ?? "VAT");
                 // Create and add a new ClassifiedTaxCategory object to the array.
                 $classifiedTax[] = (new ClassifiedTaxCategory())
                     ->setPercent($tax['percent'] ?? 15)

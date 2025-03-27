@@ -1,6 +1,7 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\Mappers\Validators\InvoiceValidator;
+use Saucex22\Zatca\Mappers\Validators\InvoiceValidator;
 
 /**
  * Class InvoiceValidatorTest
@@ -76,7 +77,7 @@ class InvoiceValidatorTest extends TestCase
                     'id'                => 1,
                     'unitCode'          => 'PCE',
                     'quantity'          => 2,
-                    'lineExtensionAmount'=> 200, // 100 * 2 = 200
+                    'lineExtensionAmount' => 200, // 100 * 2 = 200
                     'item' => [
                         'name'        => 'Product A',
                         'classifiedTaxCategory' => [
@@ -94,7 +95,7 @@ class InvoiceValidatorTest extends TestCase
                     ],
                     'taxTotal' => [
                         'taxAmount'     => 30,
-                        'roundingAmount'=> 230  // 200 + 30 = 230
+                        'roundingAmount' => 230  // 200 + 30 = 230
                     ]
                 ]
             ]
@@ -157,7 +158,7 @@ class InvoiceValidatorTest extends TestCase
                     'id'                => 1,
                     'unitCode'          => 'PCE',
                     'quantity'          => 2,
-                    'lineExtensionAmount'=> 200,
+                    'lineExtensionAmount' => 200,
                     'item' => [
                         'name'        => 'Product A',
                         'classifiedTaxCategory' => [
@@ -175,7 +176,7 @@ class InvoiceValidatorTest extends TestCase
                     ],
                     'taxTotal' => [
                         'taxAmount'     => 30,
-                        'roundingAmount'=> 230
+                        'roundingAmount' => 230
                     ]
                 ]
             ]

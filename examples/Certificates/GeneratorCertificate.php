@@ -1,8 +1,8 @@
 <?php
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Saleh7\Zatca\CertificateBuilder;
-use Saleh7\Zatca\Exceptions\CertificateBuilderException;
+use Saucex22\Zatca\CertificateBuilder;
+use Saucex22\Zatca\Exceptions\CertificateBuilderException;
 
 
 // Usage example with random data:
@@ -25,7 +25,7 @@ try {
         ->setBusinessCategory('Technology')             // Your business category like food, real estate, etc
         // Generate and save the certificate and private key
         ->generateAndSave('output/certificate.csr', 'output/private.pem');
-        
+
     echo "Certificate and private key saved.\n";
 } catch (CertificateBuilderException $e) {
     echo "Error: " . $e->getMessage() . "\n";

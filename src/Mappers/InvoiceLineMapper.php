@@ -1,8 +1,10 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\{
-    InvoiceLine, TaxTotal
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\{
+    InvoiceLine,
+    TaxTotal
 };
 
 /**

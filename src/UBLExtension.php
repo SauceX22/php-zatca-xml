@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
@@ -14,7 +15,7 @@ class UBLExtension implements XmlSerializable
 {
     /** @var string|null The extension URI. */
     private ?string $extensionURI = null;
-    
+
     /** @var ExtensionContent|null The extension content. */
     private ?ExtensionContent $extensionContent = null;
 

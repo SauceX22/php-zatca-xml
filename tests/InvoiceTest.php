@@ -1,11 +1,38 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Saleh7\Zatca\{
-    SignatureInformation,UBLDocumentSignatures,ExtensionContent,UBLExtension,UBLExtensions,Signature,InvoiceType,AdditionalDocumentReference,
-    TaxScheme,PartyTaxScheme,Address,LegalEntity,Delivery,Party,PaymentMeans,TaxCategory,
-    AllowanceCharge,TaxSubTotal,TaxTotal,LegalMonetaryTotal,ClassifiedTaxCategory,Item,Price,InvoiceLine,
-    GeneratorInvoice,Invoice,UnitCode,OrderReference,BillingReference,Contract,Attachment
+use Saucex22\Zatca\{
+    SignatureInformation,
+    UBLDocumentSignatures,
+    ExtensionContent,
+    UBLExtension,
+    UBLExtensions,
+    Signature,
+    InvoiceType,
+    AdditionalDocumentReference,
+    TaxScheme,
+    PartyTaxScheme,
+    Address,
+    LegalEntity,
+    Delivery,
+    Party,
+    PaymentMeans,
+    TaxCategory,
+    AllowanceCharge,
+    TaxSubTotal,
+    TaxTotal,
+    LegalMonetaryTotal,
+    ClassifiedTaxCategory,
+    Item,
+    Price,
+    InvoiceLine,
+    GeneratorInvoice,
+    Invoice,
+    UnitCode,
+    OrderReference,
+    BillingReference,
+    Contract,
+    Attachment
 };
 
 final class InvoiceTest extends TestCase

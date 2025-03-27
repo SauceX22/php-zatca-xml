@@ -1,8 +1,11 @@
 <?php
-namespace Saleh7\Zatca\Mappers;
 
-use Saleh7\Zatca\{
-    Price, AllowanceCharge, UnitCode
+namespace Saucex22\Zatca\Mappers;
+
+use Saucex22\Zatca\{
+    Price,
+    AllowanceCharge,
+    UnitCode
 };
 
 /**
@@ -24,7 +27,7 @@ use Saleh7\Zatca\{
  *   ]
  * ]
  *
- * @package Saleh7\Zatca\Mappers
+ * @package Saucex22\Zatca\Mappers
  */
 class PriceMapper
 {
@@ -40,7 +43,7 @@ class PriceMapper
         $price = (new Price())
             ->setUnitCode($data['unitCode'] ?? UnitCode::UNIT)
             ->setPriceAmount($data['amount'] ?? 0);
-        
+
         // Map allowance charges if provided.
         if (isset($data['allowanceCharges']) && is_array($data['allowanceCharges'])) {
             $allowanceCharges = [];
@@ -52,7 +55,7 @@ class PriceMapper
             }
             $price->setAllowanceCharges($allowanceCharges);
         }
-        
+
         return $price;
     }
 }

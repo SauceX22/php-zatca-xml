@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use function Sabre\Xml\Deserializer\keyValue;
 
@@ -125,7 +126,7 @@ class AdditionalDocumentReference implements XmlSerializable, XmlDeserializable
      */
     public function xmlSerialize(Writer $writer): void
     {
-        $writer->write([ Schema::CBC . 'ID' => $this->id ]);
+        $writer->write([Schema::CBC . 'ID' => $this->id]);
         if ($this->UUID !== null) {
             $writer->write([
                 Schema::CBC . 'UUID' => $this->UUID
@@ -149,7 +150,7 @@ class AdditionalDocumentReference implements XmlSerializable, XmlDeserializable
 
         if ($this->attachment !== null) {
             $writer->write([
-              Schema::CAC . 'Attachment' => $this->attachment
+                Schema::CAC . 'Attachment' => $this->attachment
             ]);
         }
     }
@@ -172,4 +173,3 @@ class AdditionalDocumentReference implements XmlSerializable, XmlDeserializable
         ;
     }
 }
-

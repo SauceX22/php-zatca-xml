@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
@@ -180,7 +181,7 @@ class InvoiceType implements XmlSerializable
             $e = $this->isExportInvoice ? '1' : '0'; // Export invoice
             $s = $this->isSummary ? '1' : '0'; // Summary invoice
             $b = $this->isSelfBilled ? '1' : '0'; // Self-billed invoice
-        
+
             // Update the invoice type value. [PNESB]
             $invoiceTypeValue = $prefix . $p . $n . $e . $s . $b;
         }

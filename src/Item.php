@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use InvalidArgumentException;
 use Sabre\Xml\Writer;
@@ -231,7 +232,7 @@ class Item implements XmlSerializable
 
         // Write ClassifiedTaxCategory element if provided.
         if (!empty($this->classifiedTaxCategory)) {
-            foreach($this->classifiedTaxCategory as $classifiedTaxCategory){
+            foreach ($this->classifiedTaxCategory as $classifiedTaxCategory) {
                 $writer->write([
                     Schema::CAC . 'ClassifiedTaxCategory' => $classifiedTaxCategory
                 ]);

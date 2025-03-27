@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
@@ -80,7 +81,7 @@ class TaxScheme implements XmlSerializable
     public function xmlSerialize(Writer $writer): void
     {
         if ($this->id !== null) {
-            $writer->write([ Schema::CBC . 'ID' => $this->id ]);
+            $writer->write([Schema::CBC . 'ID' => $this->id]);
         }
         if ($this->taxTypeCode !== null) {
             $writer->write([

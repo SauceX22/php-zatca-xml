@@ -1,6 +1,6 @@
 <?php
 
-namespace Saleh7\Zatca\Exceptions;
+namespace Saucex22\Zatca\Exceptions;
 
 /**
  * Exception for Storage errors.

@@ -1,11 +1,38 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use Saleh7\Zatca\{
-    SignatureInformation,UBLDocumentSignatures,ExtensionContent,UBLExtension,UBLExtensions,Signature,InvoiceType,AdditionalDocumentReference,
-    TaxScheme,PartyTaxScheme,Address,LegalEntity,Delivery,Party,PaymentMeans,TaxCategory,
-    AllowanceCharge,TaxSubTotal,TaxTotal,LegalMonetaryTotal,ClassifiedTaxCategory,Item,Price,InvoiceLine,
-    GeneratorInvoice,Invoice,UnitCode,OrderReference,BillingReference,Contract,Attachment
+use Saucex22\Zatca\{
+    SignatureInformation,
+    UBLDocumentSignatures,
+    ExtensionContent,
+    UBLExtension,
+    UBLExtensions,
+    Signature,
+    InvoiceType,
+    AdditionalDocumentReference,
+    TaxScheme,
+    PartyTaxScheme,
+    Address,
+    LegalEntity,
+    Delivery,
+    Party,
+    PaymentMeans,
+    TaxCategory,
+    AllowanceCharge,
+    TaxSubTotal,
+    TaxTotal,
+    LegalMonetaryTotal,
+    ClassifiedTaxCategory,
+    Item,
+    Price,
+    InvoiceLine,
+    GeneratorInvoice,
+    Invoice,
+    UnitCode,
+    OrderReference,
+    BillingReference,
+    Contract,
+    Attachment
 };
 
 // --- Signature Information & UBL Document Signatures ---
@@ -44,10 +71,11 @@ $invoiceType = (new InvoiceType())
 
 // add Attachment
 $attachment = (new Attachment())
-    ->setBase64Content('NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==',
-    'base64', 
-    'text/plain'
-);
+    ->setBase64Content(
+        'NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==',
+        'base64',
+        'text/plain'
+    );
 
 // --- Additional Document References ---
 $additionalDocs = [];
@@ -88,13 +116,13 @@ $addressCompany = (new Address())
     ->setPostalZone('23333')
     ->setCountry('SA');
 
- // --- Supplier Company ---
+// --- Supplier Company ---
 $supplierCompany = (new Party())
-->setPartyIdentification("1010010000")
-->setPartyIdentificationId("CRN")
-->setLegalEntity($legalEntityCompany)
-->setPartyTaxScheme($partyTaxSchemeCompany)
-->setPostalAddress($addressCompany);
+    ->setPartyIdentification("1010010000")
+    ->setPartyIdentificationId("CRN")
+    ->setLegalEntity($legalEntityCompany)
+    ->setPartyTaxScheme($partyTaxSchemeCompany)
+    ->setPostalAddress($addressCompany);
 
 
 // --- Legal Entity Customer ---
@@ -140,7 +168,7 @@ $allowanceCharges[] = (new AllowanceCharge())
     ->setChargeIndicator(false)
     ->setAllowanceChargeReason('discount')
     ->setAmount(0.00)
-    ->setTaxCategory($taxCategoryDiscount);// Tax Category Discount
+    ->setTaxCategory($taxCategoryDiscount); // Tax Category Discount
 
 // --- Tax Category ---
 $taxCategorySubTotal = (new TaxCategory())
@@ -160,7 +188,7 @@ $taxTotal = (new TaxTotal())
 
 // --- Legal Monetary Total ---
 $legalMonetaryTotal = (new LegalMonetaryTotal())
-    ->setLineExtensionAmount(4)// Total amount of the invoice
+    ->setLineExtensionAmount(4) // Total amount of the invoice
     ->setTaxExclusiveAmount(4) // Total amount without tax
     ->setTaxInclusiveAmount(4.60) // Total amount with tax
     ->setPrepaidAmount(0) // Prepaid amount
@@ -219,13 +247,13 @@ $invoice = (new Invoice())
     ->setInvoiceCurrencyCode('SAR') // Currency code (ISO 4217)
     ->setTaxCurrencyCode('SAR') // Tax currency code (ISO 4217)
     ->setAdditionalDocumentReferences($additionalDocs) // Additional document references
-    ->setAccountingSupplierParty($supplierCompany)// Supplier company
+    ->setAccountingSupplierParty($supplierCompany) // Supplier company
     ->setAccountingCustomerParty($supplierCustomer) // Customer company
-    ->setPaymentMeans($paymentMeans)// Payment means
-    ->setAllowanceCharges($allowanceCharges)// Allowance charges
-    ->setTaxTotal($taxTotal)// Tax total
-    ->setLegalMonetaryTotal($legalMonetaryTotal)// Legal monetary total
-    ->setInvoiceLines($invoiceLines)// Invoice lines
+    ->setPaymentMeans($paymentMeans) // Payment means
+    ->setAllowanceCharges($allowanceCharges) // Allowance charges
+    ->setTaxTotal($taxTotal) // Tax total
+    ->setLegalMonetaryTotal($legalMonetaryTotal) // Legal monetary total
+    ->setInvoiceLines($invoiceLines) // Invoice lines
     ->setSignature($signature);
 
 
@@ -233,7 +261,6 @@ try {
     // Generate the XML (default currency 'SAR')
     // Save the XML to an output file
     GeneratorInvoice::invoice($invoice)->saveXMLFile('GeneratorSimplified_Invoice.xml');
-
 } catch (\Exception $e) {
     // Log error message and exit
     echo "An error occurred: " . $e->getMessage() . "\n";

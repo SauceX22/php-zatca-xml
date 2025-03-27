@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use InvalidArgumentException;
 use Sabre\Xml\Writer;
@@ -33,7 +34,7 @@ class AllowanceCharge implements XmlSerializable
     /** @var TaxTotal|null Tax total information. */
     private ?TaxTotal $taxTotal = null;
 
-     /** @var array|null List of tax categories. */
+    /** @var array|null List of tax categories. */
     private ?array $taxCategory = null;
 
     /**
@@ -280,7 +281,7 @@ class AllowanceCharge implements XmlSerializable
         }
 
         if ($this->taxCategory !== null) {
-            foreach($this->taxCategory as $taxCategory){
+            foreach ($this->taxCategory as $taxCategory) {
                 $writer->write([
                     Schema::CAC . 'TaxCategory' => $taxCategory
                 ]);

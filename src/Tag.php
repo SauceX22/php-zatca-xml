@@ -1,6 +1,6 @@
 <?php
 
-namespace Saleh7\Zatca;
+namespace Saucex22\Zatca;
 
 class Tag
 {
@@ -47,7 +47,7 @@ class Tag
     {
         $value = (string) $this->getValue();
 
-        return $this->toHex($this->getTag()).$this->toHex($this->getLength()).($value);
+        return $this->toHex($this->getTag()) . $this->toHex($this->getLength()) . ($value);
     }
 
     /**
@@ -62,4 +62,3 @@ class Tag
         return pack("H*", sprintf("%02X", $value));
     }
 }
-

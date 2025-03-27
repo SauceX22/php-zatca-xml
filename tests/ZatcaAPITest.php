@@ -8,10 +8,10 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
-use Saleh7\Zatca\ZatcaAPI;
-use Saleh7\Zatca\Exceptions\ZatcaApiException;
-use Saleh7\Zatca\Api\ComplianceCertificateResult;
-use Saleh7\Zatca\Api\ProductionCertificateResult;
+use Saucex22\Zatca\ZatcaAPI;
+use Saucex22\Zatca\Exceptions\ZatcaApiException;
+use Saucex22\Zatca\Api\ComplianceCertificateResult;
+use Saucex22\Zatca\Api\ProductionCertificateResult;
 
 final class ZatcaAPITest extends TestCase
 {
@@ -88,7 +88,7 @@ final class ZatcaAPITest extends TestCase
 
         $decodedCertificate = base64_decode($formattedCertificate, true);
         $this->assertTrue(ctype_print($decodedCertificate) === false, 'Certificate should contain binary data.');
-        
+
         $this->assertEquals("Dehvg1fc8GF6Jwt5bOxXwC6enR93VxeNEo2mlUatfgw=", $result->getSecret());
         $this->assertEquals("1234567890123", $result->getRequestId());
     }
@@ -111,7 +111,7 @@ final class ZatcaAPITest extends TestCase
 
         $certificate  = "dummy certificate";
         $secret       = "dummySecret";
-        $signedInvoice= "signedInvoiceData";
+        $signedInvoice = "signedInvoiceData";
         $invoiceHash  = "dummyHash";
         $uuid         = "dummyUuid";
 
@@ -141,14 +141,14 @@ final class ZatcaAPITest extends TestCase
         $complianceRequestId  = "dummyComplianceRequestID";
 
         $result = $api->requestProductionCertificate($certificate, $secret, $complianceRequestId);
-  
+
         $this->assertInstanceOf(ProductionCertificateResult::class, $result);
         $formattedCertificate = $result->getCertificate();
         $this->assertNotFalse(base64_decode($formattedCertificate, true), 'Certificate should be a valid Base64 string.');
 
         $decodedCertificate = base64_decode($formattedCertificate, true);
         $this->assertTrue(ctype_print($decodedCertificate) === false, 'Certificate should contain binary data.');
-    
+
         $this->assertEquals("prodSecret", $result->getSecret());
         $this->assertEquals("prodRequestID", $result->getRequestId());
     }

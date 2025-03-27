@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca;
+
+namespace Saucex22\Zatca;
 
 use InvalidArgumentException;
 use Sabre\Xml\Writer;
@@ -240,7 +241,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->taxExclusiveAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'TaxExclusiveAmount',
@@ -248,7 +249,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->taxInclusiveAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'TaxInclusiveAmount',
@@ -256,7 +257,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->allowanceTotalAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'AllowanceTotalAmount',
@@ -264,7 +265,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->chargeTotalAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'ChargeTotalAmount',
@@ -272,7 +273,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->prepaidAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'PrepaidAmount',
@@ -280,7 +281,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
+
         if ($this->payableAmount !== null) {
             $elements[] = [
                 'name' => Schema::CBC . 'PayableAmount',
@@ -288,7 +289,7 @@ class LegalMonetaryTotal implements XmlSerializable
                 'attributes' => ['currencyID' => $currencyID],
             ];
         }
-        
-        $writer->write($elements);        
+
+        $writer->write($elements);
     }
 }

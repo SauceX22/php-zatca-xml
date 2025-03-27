@@ -1,5 +1,6 @@
 <?php
-namespace Saleh7\Zatca\Mappers\Validators;
+
+namespace Saucex22\Zatca\Mappers\Validators;
 
 /**
  * Class InvoiceValidator
@@ -12,7 +13,7 @@ namespace Saleh7\Zatca\Mappers\Validators;
  * payment means, tax totals, legal monetary totals, invoice lines, and additional
  * document references.
  *
- * @package Saleh7\Zatca\Mappers\Validators
+ * @package Saucex22\Zatca\Mappers\Validators
  */
 class InvoiceValidator
 {
@@ -42,7 +43,7 @@ class InvoiceValidator
                 throw new \InvalidArgumentException("The field '{$friendlyName}' is required and cannot be empty.");
             }
         }
-        
+
         // Validate invoiceType fields if provided.
         if (isset($data['invoiceType'])) {
             $invoiceTypeRequired = [
@@ -55,7 +56,7 @@ class InvoiceValidator
                 }
             }
         }
-        
+
         // Validate supplier data.
         if (!isset($data['supplier']) || empty($data['supplier'])) {
             throw new \InvalidArgumentException("Supplier data is required.");
@@ -74,7 +75,7 @@ class InvoiceValidator
                 }
             }
         }
-        
+
         // Determine invoice type: if not simplified, then customer data is required.
         $isSimplified = isset($data['invoiceType']['invoice']) && strtolower($data['invoiceType']['invoice']) === 'simplified';
         if (!$isSimplified) {
@@ -97,14 +98,14 @@ class InvoiceValidator
                 }
             }
         }
-        
+
         // Validate paymentMeans if provided.
         if (isset($data['paymentMeans'])) {
             if (!isset($data['paymentMeans']['code']) || empty($data['paymentMeans']['code'])) {
                 throw new \InvalidArgumentException("The field 'Payment Means code' is required and cannot be empty.");
             }
         }
-        
+
         // Validate taxTotal if provided.
         if (isset($data['taxTotal'])) {
             if (!isset($data['taxTotal']['taxAmount']) || $data['taxTotal']['taxAmount'] === '') {
@@ -126,7 +127,7 @@ class InvoiceValidator
                 }
             }
         }
-        
+
         // Validate legalMonetaryTotal.
         if (!isset($data['legalMonetaryTotal']) || empty($data['legalMonetaryTotal'])) {
             throw new \InvalidArgumentException("Legal Monetary Total data is required.");
@@ -138,7 +139,7 @@ class InvoiceValidator
                 }
             }
         }
-        
+
         // Validate invoiceLines.
         if (!isset($data['invoiceLines']) || !is_array($data['invoiceLines']) || count($data['invoiceLines']) === 0) {
             throw new \InvalidArgumentException("At least one invoice line is required.");
@@ -150,7 +151,7 @@ class InvoiceValidator
                         throw new \InvalidArgumentException("The field 'Invoice Lines[{$lineIndex}] {$field}' is required and cannot be empty.");
                     }
                 }
-                
+
                 // Validate item within invoice line.
                 if (!isset($line['item']['name']) || empty($line['item']['name'])) {
                     throw new \InvalidArgumentException("The field 'Invoice Lines[{$lineIndex}] Item name' is required and cannot be empty.");
@@ -161,19 +162,19 @@ class InvoiceValidator
                 if (!isset($line['item']['classifiedTaxCategory'][0]['percent']) || $line['item']['classifiedTaxCategory'][0]['percent'] === '') {
                     throw new \InvalidArgumentException("The field 'Invoice Lines[{$lineIndex}] Item percent' is required and cannot be empty.");
                 }
-                
+
                 // Validate price within invoice line.
                 if (!isset($line['price']['amount']) || $line['price']['amount'] === '') {
                     throw new \InvalidArgumentException("The field 'Invoice Lines[{$lineIndex}] Price amount' is required and cannot be empty.");
                 }
-                
+
                 // Validate taxTotal within invoice line.
                 if (!isset($line['taxTotal']['taxAmount']) || $line['taxTotal']['taxAmount'] === '') {
                     throw new \InvalidArgumentException("The field 'Invoice Lines[{$lineIndex}] TaxTotal taxAmount' is required and cannot be empty.");
                 }
             }
         }
-        
+
         // Validate additionalDocuments if provided.
         if (isset($data['additionalDocuments']) && is_array($data['additionalDocuments'])) {
             foreach ($data['additionalDocuments'] as $docIndex => $doc) {
