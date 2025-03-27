@@ -17,18 +17,18 @@ use Saleh7\Zatca\Exceptions\ZatcaStorageException;
  */
 class ZatcaAPI
 {
-    private const ENVIRONMENTS = [
+    protected const ENVIRONMENTS = [
         'sandbox'    => 'https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal',
         'simulation' => 'https://gw-fatoora.zatca.gov.sa/e-invoicing/simulation',
         'production' => 'https://gw-fatoora.zatca.gov.sa/e-invoicing/core',
     ];
 
-    private const API_VERSION = 'V2';
-    private const SUCCESS_STATUS_CODES = [200, 202];
+    protected const API_VERSION = 'V2';
+    protected const SUCCESS_STATUS_CODES = [200, 202];
 
-    private ClientInterface $httpClient;
-    private bool $allowWarnings = false;
-    private string $environment;
+    protected ClientInterface $httpClient;
+    protected bool $allowWarnings = false;
+    protected string $environment;
 
     /**
      * @param string $environment API environment (sandbox|simulation|production)
@@ -213,7 +213,7 @@ class ZatcaAPI
      * @param string $secret
      * @return array
      */
-    private function createAuthHeaders(string $certificate, string $secret): array
+    protected function createAuthHeaders(string $certificate, string $secret): array
     {
         $cleanCert   = trim($certificate);
         $credentials = base64_encode($cleanCert . ':' . $secret);
@@ -231,7 +231,7 @@ class ZatcaAPI
      * @return array Decoded response data.
      * @throws ZatcaApiException On HTTP or API errors.
      */
-    private function sendRequest(
+    protected function sendRequest(
         string $method,
         string $endpoint,
         array $headers = [],
@@ -279,7 +279,7 @@ class ZatcaAPI
     /**
      * Validate HTTP status code against success criteria.
      */
-    private function isSuccessfulResponse(int $statusCode): bool
+    protected function isSuccessfulResponse(int $statusCode): bool
     {
         return in_array($statusCode, self::SUCCESS_STATUS_CODES, true) &&
                ($this->allowWarnings || $statusCode === 200);
@@ -292,7 +292,7 @@ class ZatcaAPI
      * @return array
      * @throws ZatcaApiException If response JSON is invalid.
      */
-    private function parseResponse(ResponseInterface $response): array
+    protected function parseResponse(ResponseInterface $response): array
     {
         $content = $response->getBody()->getContents();
         $data    = json_decode($content, true);
@@ -310,7 +310,7 @@ class ZatcaAPI
      * @param string $base64Certificate
      * @return string
      */
-    private function formatCertificate(string $base64Certificate): string
+    protected function formatCertificate(string $base64Certificate): string
     {
         return base64_decode($base64Certificate);
     }
