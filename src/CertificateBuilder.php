@@ -58,7 +58,7 @@ EOL;
      *
      * @var OpenSSLAsymmetricKey|object|null
      */
-    protected $privateKey = null;
+    protected $keypair = null;
 
     /**
      * The CSR resource/object.
@@ -228,13 +228,30 @@ EOL;
      */
     public function getPrivateKey(): string
     {
-        if (!$this->privateKey) {
-            throw new CertificateBuilderException('Private key not generated. Call generate() first.');
+        if (!$this->keypair) {
+            throw new CertificateBuilderException('Keypair not generated. Call generate() first.');
         }
-        if (!openssl_pkey_export($this->privateKey, $privateKey)) {
+        if (!openssl_pkey_export($this->keypair, $privateKey)) {
             throw new CertificateBuilderException('Private key export failed: ' . $this->getOpenSslErrors());
         }
         return $privateKey;
+    }
+
+    /**
+     * Get the public key.
+     *
+     * @return string
+     */
+    public function getPublicKey(): string
+    {
+        if (!$this->keypair) {
+            throw new CertificateBuilderException('keypair not generated. Call generate() first.');
+        }
+        $details = openssl_pkey_get_details($this->keypair);
+        if (!$details['key']) {
+            throw new CertificateBuilderException('Public key export failed: ' . $this->getOpenSslErrors());
+        }
+        return $details['key'];
     }
 
     /**
@@ -242,7 +259,7 @@ EOL;
      */
     public function savePrivateKey(string $path): void
     {
-        if (!openssl_pkey_export_to_file($this->privateKey, $path)) {
+        if (!openssl_pkey_export_to_file($this->keypair, $path)) {
             throw new CertificateBuilderException('Private key export failed: ' . $this->getOpenSslErrors());
         }
     }
@@ -331,8 +348,8 @@ EOL;
      */
     protected function generateKeys(array $config): void
     {
-        $this->privateKey = openssl_pkey_new($config);
-        if ($this->privateKey === false) {
+        $this->keypair = openssl_pkey_new($config);
+        if ($this->keypair === false) {
             throw new CertificateBuilderException('Key generation failed: ' . $this->getOpenSslErrors());
         }
 
@@ -343,7 +360,7 @@ EOL;
             "C"                      => $this->country
         ];
 
-        $this->csr = openssl_csr_new($dn, $this->privateKey, $config);
+        $this->csr = openssl_csr_new($dn, $this->keypair, $config);
         if ($this->csr === false) {
             throw new CertificateBuilderException('CSR generation failed: ' . $this->getOpenSslErrors());
         }
@@ -379,9 +396,9 @@ EOL;
      */
     public function __destruct()
     {
-        if ($this->privateKey && is_resource($this->privateKey)) {
+        if ($this->keypair && is_resource($this->keypair)) {
             // todo DEPRECATED https://www.php.net/manual/en/function.openssl-pkey-free.php
-            openssl_pkey_free($this->privateKey);
+            openssl_pkey_free($this->keypair);
         }
     }
 }
